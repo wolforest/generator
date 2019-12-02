@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -283,7 +283,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             key = new PkonlyKey();
             key.setId(5);
             key.setSeqNum(6);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             answer = mapper.selectByExample(example);
@@ -446,7 +446,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfields returnedRecord = mapper.selectById(key);
             assertNotNull(returnedRecord);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
@@ -489,14 +489,14 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             record.setFirstname("Scott");
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields record2 = mapper.selectByPrimaryKey(key);
+            Pkfields record2 = mapper.selectById(key);
 
             assertEquals(record.getFirstname(), record2.getFirstname());
             assertEquals(record.getLastname(), record2.getLastname());
@@ -528,14 +528,14 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             newRecord.setFirstname("Scott");
             newRecord.setDecimal60field(4);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfields returnedRecord = mapper.selectById(key);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
                     .getDatefield()));
@@ -579,7 +579,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             key.setId1(1);
             key.setId2(2);
 
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             PkfieldsExample example = new PkfieldsExample();
@@ -651,7 +651,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(3);
             key.setId2(4);
-            Pkfields newRecord = mapper.selectByPrimaryKey(key);
+            Pkfields newRecord = mapper.selectById(key);
 
             assertNotNull(newRecord);
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -1297,7 +1297,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             int rows = mapper.updateByPrimaryKeyWithBLOBs(record);
             assertEquals(1, rows);
 
-            Pkblobs newRecord = mapper.selectByPrimaryKey(3);
+            Pkblobs newRecord = mapper.selectById(3);
 
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
@@ -1323,9 +1323,9 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             Pkblobs newRecord = new Pkblobs();
             newRecord.setId(3);
             newRecord.setBlob2(generateRandomBlob());
-            mapper.updateByPrimaryKeySelective(newRecord);
+            mapper.updateByIdSelective(newRecord);
 
-            Pkblobs returnedRecord = mapper.selectByPrimaryKey(3);
+            Pkblobs returnedRecord = mapper.selectById(3);
             assertNotNull(returnedRecord);
             assertEquals(record.getId(), returnedRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
@@ -1353,7 +1353,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             List<Pkblobs> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
 
-            int rows = mapper.deleteByPrimaryKey(3);
+            int rows = mapper.deleteById(3);
             assertEquals(1, rows);
 
             example = new PkblobsExample();
@@ -1417,7 +1417,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
 
-            Pkblobs newRecord = mapper.selectByPrimaryKey(6);
+            Pkblobs newRecord = mapper.selectById(6);
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), newRecord.getBlob1()));
@@ -1609,7 +1609,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(3);
             key.setId2(4);
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs newRecord = mapper.selectById(key);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1641,13 +1641,13 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             updateRecord.setFirstname("Scott");
             updateRecord.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(updateRecord);
+            int rows = mapper.updateById(updateRecord);
             assertEquals(1, rows);
 
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(3);
             key.setId2(4);
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs newRecord = mapper.selectById(key);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1677,13 +1677,13 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             updateRecord.setId2(4);
             updateRecord.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKeySelective(updateRecord);
+            int rows = mapper.updateByIdSelective(updateRecord);
             assertEquals(1, rows);
 
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(3);
             key.setId2(4);
-            Pkfieldsblobs returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs returnedRecord = mapper.selectById(key);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), returnedRecord
                     .getLastname());
@@ -1725,7 +1725,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(5);
             key.setId2(6);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             example = new PkfieldsblobsExample();
@@ -1804,7 +1804,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(5);
             key.setId2(6);
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs newRecord = mapper.selectById(key);
             assertEquals(record.getId1(), newRecord.getId1());
             assertEquals(record.getId2(), newRecord.getId2());
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -2188,8 +2188,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2236,8 +2235,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2286,10 +2284,10 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             record.setId1(11);
             record.setId2(22);
 
-            rows = mapper.updateByPrimaryKey(record);
+            rows = mapper.updateById(record);
             assertEquals(1, rows);
 
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2341,10 +2339,10 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             newRecord.setId1(11);
             newRecord.setId2(22);
 
-            rows = mapper.updateByPrimaryKeySelective(newRecord);
+            rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2391,7 +2389,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            rows = mapper.deleteByPrimaryKey(generatedCustomerId);
+            rows = mapper.deleteById(generatedCustomerId);
             assertEquals(1, rows);
 
             AwfulTableExample example = new AwfulTableExample();
@@ -2494,7 +2492,7 @@ public class ConditionalJava5Test extends AbstractMixedConditionalTest {
             Integer generatedKey = record.getCustomerId();
             assertEquals(58, generatedKey.intValue());
 
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedKey);
+            AwfulTable returnedRecord = mapper.selectById(generatedKey);
 
             assertNotNull(returnedRecord);
             assertEquals(record.getCustomerId(), returnedRecord.getCustomerId());

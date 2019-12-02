@@ -82,7 +82,7 @@ public class MiscellaneousTest extends AbstractMiscellaneousTest {
             key.setId1(1);
             key.setId2(2);
 
-            MyObject returnedRecord = mapper.selectByPrimaryKey(key);
+            MyObject returnedRecord = mapper.selectById(key);
             assertNotNull(returnedRecord);
 
             assertTrue(datesAreEqual(record.getStartDate(), returnedRecord
@@ -126,14 +126,14 @@ public class MiscellaneousTest extends AbstractMiscellaneousTest {
             record.setFirstname(fn);
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
             MyObjectKey key = new MyObjectKey();
             key.setId1(1);
             key.setId2(2);
 
-            MyObject record2 = mapper.selectByPrimaryKey(key);
+            MyObject record2 = mapper.selectById(key);
 
             assertEquals(record.getFirstname(), record2.getFirstname());
             assertEquals(record.getLastname(), record2.getLastname());
@@ -169,14 +169,14 @@ public class MiscellaneousTest extends AbstractMiscellaneousTest {
             newRecord.setFirstname(fn);
             record.setStartDate(new Date());
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
             MyObjectKey key = new MyObjectKey();
             key.setId1(1);
             key.setId2(2);
 
-            MyObject returnedRecord = mapper.selectByPrimaryKey(key);
+            MyObject returnedRecord = mapper.selectById(key);
 
             assertTrue(datesAreEqual(newRecord.getStartDate(), returnedRecord
                     .getStartDate()));
@@ -223,7 +223,7 @@ public class MiscellaneousTest extends AbstractMiscellaneousTest {
             key.setId1(1);
             key.setId2(2);
 
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             MyObjectCriteria example = new MyObjectCriteria();
@@ -303,7 +303,7 @@ public class MiscellaneousTest extends AbstractMiscellaneousTest {
             MyObjectKey key = new MyObjectKey();
             key.setId1(3);
             key.setId2(4);
-            MyObject newRecord = mapper.selectByPrimaryKey(key);
+            MyObject newRecord = mapper.selectById(key);
 
             assertNotNull(newRecord);
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -911,7 +911,7 @@ public class MiscellaneousTest extends AbstractMiscellaneousTest {
             
             mapper.insert(record);
             
-            Regexrename returnedRecord = mapper.selectByPrimaryKey(1);
+            Regexrename returnedRecord = mapper.selectById(1);
             
             assertEquals(record.getAddress(), returnedRecord.getAddress());
             assertEquals(1, returnedRecord.getId().intValue());
@@ -935,7 +935,7 @@ public class MiscellaneousTest extends AbstractMiscellaneousTest {
             Integer key = 1;
             assertEquals(key, record.getId());
             
-            Regexrename returnedRecord = mapper.selectByPrimaryKey(key);
+            Regexrename returnedRecord = mapper.selectById(key);
             
             assertNull(returnedRecord.getAddress());
             assertEquals(record.getId(), returnedRecord.getId());

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -232,7 +232,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             assertEquals(2, answer.size());
 
             key = new PkonlyKey(5, 6);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             answer = mapper.selectByExample(example);
@@ -371,7 +371,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfields returnedRecord = mapper.selectById(key);
             assertNotNull(returnedRecord);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
@@ -414,14 +414,14 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             record.setFirstname("Scott");
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields record2 = mapper.selectByPrimaryKey(key);
+            Pkfields record2 = mapper.selectById(key);
 
             assertEquals(record.getFirstname(), record2.getFirstname());
             assertEquals(record.getLastname(), record2.getLastname());
@@ -453,14 +453,14 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             newRecord.setFirstname("Scott");
             newRecord.setDecimal60field(4);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfields returnedRecord = mapper.selectById(key);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
                     .getDatefield()));
@@ -504,7 +504,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             key.setId1(1);
             key.setId2(2);
 
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             PkfieldsExample example = new PkfieldsExample();
@@ -576,7 +576,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(3);
             key.setId2(4);
-            Pkfields newRecord = mapper.selectByPrimaryKey(key);
+            Pkfields newRecord = mapper.selectById(key);
 
             assertNotNull(newRecord);
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -1127,7 +1127,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             int rows = mapper.updateByPrimaryKeyWithBLOBs(record);
             assertEquals(1, rows);
 
-            Pkblobs newRecord = mapper.selectByPrimaryKey(3);
+            Pkblobs newRecord = mapper.selectById(3);
 
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
@@ -1151,9 +1151,9 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
 
             Pkblobs newRecord = new Pkblobs(3, null, generateRandomBlob(),
                     "Long String 2");
-            mapper.updateByPrimaryKeySelective(newRecord);
+            mapper.updateByIdSelective(newRecord);
 
-            Pkblobs returnedRecord = mapper.selectByPrimaryKey(3);
+            Pkblobs returnedRecord = mapper.selectById(3);
             assertNotNull(returnedRecord);
             assertEquals(record.getId(), returnedRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
@@ -1180,7 +1180,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             List<Pkblobs> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
 
-            int rows = mapper.deleteByPrimaryKey(3);
+            int rows = mapper.deleteById(3);
             assertEquals(1, rows);
 
             example = new PkblobsExample();
@@ -1236,7 +1236,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
                     "Long String 2");
             mapper.insert(record);
 
-            Pkblobs newRecord = mapper.selectByPrimaryKey(6);
+            Pkblobs newRecord = mapper.selectById(6);
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), newRecord.getBlob1()));
@@ -1397,7 +1397,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             assertEquals(1, rows);
 
             PkfieldsblobsKey key = new PkfieldsblobsKey(3, 4);
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs newRecord = mapper.selectById(key);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1420,11 +1420,11 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
 
             Pkfieldsblobs updateRecord = new Pkfieldsblobs(3, 4, "Scott", "Jones");
 
-            int rows = mapper.updateByPrimaryKey(updateRecord);
+            int rows = mapper.updateById(updateRecord);
             assertEquals(1, rows);
 
             PkfieldsblobsKey key = new PkfieldsblobsKey(3, 4);
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs newRecord = mapper.selectById(key);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1446,11 +1446,11 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
 
             Pkfieldsblobs updateRecord = new Pkfieldsblobs(3, 4, null, "Jones", null);
 
-            int rows = mapper.updateByPrimaryKeySelective(updateRecord);
+            int rows = mapper.updateByIdSelective(updateRecord);
             assertEquals(1, rows);
 
             PkfieldsblobsKey key = new PkfieldsblobsKey(3, 4);
-            Pkfieldsblobs returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs returnedRecord = mapper.selectById(key);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), returnedRecord
                     .getLastname());
@@ -1481,7 +1481,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             assertEquals(2, answer.size());
 
             PkfieldsblobsKey key = new PkfieldsblobsKey(5, 6);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             example = new PkfieldsblobsExample();
@@ -1540,7 +1540,7 @@ public class ConditionalJava5Test extends AbstractConditionalImmutableTest {
             assertEquals(2, answer.size());
 
             PkfieldsblobsKey key = new PkfieldsblobsKey(5, 6);
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(key);
+            Pkfieldsblobs newRecord = mapper.selectById(key);
             assertEquals(record.getId1(), newRecord.getId1());
             assertEquals(record.getId2(), newRecord.getId2());
             assertEquals(record.getFirstname(), newRecord.getFirstname());

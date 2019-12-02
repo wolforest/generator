@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -285,7 +285,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             key = new PkonlyKey();
             key.setId(5);
             key.setSeqNum(6);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             answer = mapper.selectByExample(example);
@@ -448,7 +448,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfields returnedRecord = mapper.selectById(key);
             assertNotNull(returnedRecord);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
@@ -491,14 +491,14 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             record.setFirstname("Scott");
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields record2 = mapper.selectByPrimaryKey(key);
+            Pkfields record2 = mapper.selectById(key);
 
             assertEquals(record.getFirstname(), record2.getFirstname());
             assertEquals(record.getLastname(), record2.getLastname());
@@ -530,14 +530,14 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             newRecord.setFirstname("Scott");
             newRecord.setDecimal60field(4);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(1);
             key.setId2(2);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
+            Pkfields returnedRecord = mapper.selectById(key);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
                     .getDatefield()));
@@ -581,7 +581,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             key.setId1(1);
             key.setId2(2);
 
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             PkfieldsExample example = new PkfieldsExample();
@@ -653,7 +653,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             PkfieldsKey key = new PkfieldsKey();
             key.setId1(3);
             key.setId2(4);
-            Pkfields newRecord = mapper.selectByPrimaryKey(key);
+            Pkfields newRecord = mapper.selectById(key);
 
             assertNotNull(newRecord);
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -1212,7 +1212,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             PkblobsKey key = new PkblobsKey();
             key.setId(3);
 
-            PkblobsWithBLOBs newRecord = mapper.selectByPrimaryKey(key);
+            PkblobsWithBLOBs newRecord = mapper.selectById(key);
 
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
@@ -1238,12 +1238,12 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             PkblobsWithBLOBs newRecord = new PkblobsWithBLOBs();
             newRecord.setId(3);
             newRecord.setBlob2(generateRandomBlob());
-            mapper.updateByPrimaryKeySelective(newRecord);
+            mapper.updateByIdSelective(newRecord);
 
             PkblobsKey key = new PkblobsKey();
             key.setId(3);
 
-            PkblobsWithBLOBs returnedRecord = mapper.selectByPrimaryKey(key);
+            PkblobsWithBLOBs returnedRecord = mapper.selectById(key);
             assertNotNull(returnedRecord);
             assertEquals(record.getId(), returnedRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
@@ -1273,7 +1273,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
 
             PkblobsKey key = new PkblobsKey();
             key.setId(3);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             example = new PkblobsExample();
@@ -1339,7 +1339,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
 
             PkblobsKey key = new PkblobsKey();
             key.setId(6);
-            PkblobsWithBLOBs newRecord = mapper.selectByPrimaryKey(key);
+            PkblobsWithBLOBs newRecord = mapper.selectById(key);
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), newRecord.getBlob1()));
@@ -1532,7 +1532,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(3);
             key.setId2(4);
-            PkfieldsblobsWithBLOBs newRecord = mapper.selectByPrimaryKey(key);
+            PkfieldsblobsWithBLOBs newRecord = mapper.selectById(key);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1564,13 +1564,13 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             updateRecord.setFirstname("Scott");
             updateRecord.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(updateRecord);
+            int rows = mapper.updateById(updateRecord);
             assertEquals(1, rows);
 
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(3);
             key.setId2(4);
-            PkfieldsblobsWithBLOBs newRecord = mapper.selectByPrimaryKey(key);
+            PkfieldsblobsWithBLOBs newRecord = mapper.selectById(key);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1600,13 +1600,13 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             updateRecord.setId2(4);
             updateRecord.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKeySelective(updateRecord);
+            int rows = mapper.updateByIdSelective(updateRecord);
             assertEquals(1, rows);
 
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(3);
             key.setId2(4);
-            PkfieldsblobsWithBLOBs returnedRecord = mapper.selectByPrimaryKey(key);
+            PkfieldsblobsWithBLOBs returnedRecord = mapper.selectById(key);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), returnedRecord
                     .getLastname());
@@ -1649,7 +1649,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(5);
             key.setId2(6);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             example = new PkfieldsblobsExample();
@@ -1730,7 +1730,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             PkfieldsblobsKey key = new PkfieldsblobsKey();
             key.setId1(5);
             key.setId2(6);
-            PkfieldsblobsWithBLOBs newRecord = mapper.selectByPrimaryKey(key);
+            PkfieldsblobsWithBLOBs newRecord = mapper.selectById(key);
             assertEquals(record.getId1(), newRecord.getId1());
             assertEquals(record.getId2(), newRecord.getId2());
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -2112,7 +2112,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
 
             AwfulTableKey key = new AwfulTableKey();
             key.setCustomerId(generatedCustomerId);
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(key);
+            AwfulTable returnedRecord = mapper.selectById(key);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2162,7 +2162,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             
             AwfulTableKey key = new AwfulTableKey();
             key.setCustomerId(generatedCustomerId);
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(key);
+            AwfulTable returnedRecord = mapper.selectById(key);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2209,12 +2209,12 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             record.setId1(11);
             record.setId2(22);
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
             AwfulTableKey key = new AwfulTableKey();
             key.setCustomerId(generatedCustomerId);
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(key);
+            AwfulTable returnedRecord = mapper.selectById(key);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2264,12 +2264,12 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
             newRecord.setId1(11);
             newRecord.setId2(22);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
             AwfulTableKey key = new AwfulTableKey();
             key.setCustomerId(generatedCustomerId);
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(key);
+            AwfulTable returnedRecord = mapper.selectById(key);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2316,7 +2316,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
 
             AwfulTableKey key = new AwfulTableKey();
             key.setCustomerId(generatedCustomerId);
-            int rows = mapper.deleteByPrimaryKey(key);
+            int rows = mapper.deleteById(key);
             assertEquals(1, rows);
 
             AwfulTableExample example = new AwfulTableExample();
@@ -2419,7 +2419,7 @@ public class HierarchicalJava5Test extends AbstractHierarchicalTest {
 
             AwfulTableKey key = new AwfulTableKey();
             key.setCustomerId(generatedKey);
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(key);
+            AwfulTable returnedRecord = mapper.selectById(key);
 
             assertNotNull(returnedRecord);
             assertEquals(record.getCustomerId(), returnedRecord.getCustomerId());

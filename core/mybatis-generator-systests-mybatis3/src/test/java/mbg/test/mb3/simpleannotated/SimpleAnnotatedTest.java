@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -66,19 +66,19 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
             List<AwfulTable> records = mapper.selectAll();
             assertEquals(2, records.size());
             
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(record.getCustomerId());
+            AwfulTable returnedRecord = mapper.selectById(record.getCustomerId());
             assertNotNull(returnedRecord);
             assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             
             record.setFirstFirstName("Betty");
-            rows = mapper.updateByPrimaryKey(record);
+            rows = mapper.updateById(record);
             assertEquals(1, rows);
             
-            returnedRecord = mapper.selectByPrimaryKey(record.getCustomerId());
+            returnedRecord = mapper.selectById(record.getCustomerId());
             assertNotNull(returnedRecord);
             assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             
-            rows = mapper.deleteByPrimaryKey(record.getCustomerId());
+            rows = mapper.deleteById(record.getCustomerId());
             assertEquals(1, rows);
             
             records = mapper.selectAll();
@@ -111,7 +111,7 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
 
             mapper.insert(record);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(2, 1);
+            Pkfields returnedRecord = mapper.selectById(2, 1);
             assertNotNull(returnedRecord);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
@@ -154,10 +154,10 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
             record.setFirstname("Scott");
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
-            Pkfields record2 = mapper.selectByPrimaryKey(2, 1);
+            Pkfields record2 = mapper.selectById(2, 1);
             assertNotNull(record2);
 
             assertEquals(record.getFirstname(), record2.getFirstname());
@@ -183,7 +183,7 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
 
             mapper.insert(record);
 
-            int rows = mapper.deleteByPrimaryKey(2, 1);
+            int rows = mapper.deleteById(2, 1);
             assertEquals(1, rows);
 
             List<Pkfields> answer = mapper.selectAll();
@@ -213,7 +213,7 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
             record.setId2(4);
             mapper.insert(record);
 
-            Pkfields newRecord = mapper.selectByPrimaryKey(4, 3);
+            Pkfields newRecord = mapper.selectById(4, 3);
 
             assertNotNull(newRecord);
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -356,19 +356,19 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
             List<Pkblobs> records = mapper.selectAll();
             assertEquals(2, records.size());
             
-            Pkblobs returnedRecord = mapper.selectByPrimaryKey(record.getId());
+            Pkblobs returnedRecord = mapper.selectById(record.getId());
             assertNotNull(returnedRecord);
             assertTrue(TestUtilities.blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
             
             record.setBlob1(TestUtilities.generateRandomBlob());
-            rows = mapper.updateByPrimaryKey(record);
+            rows = mapper.updateById(record);
             assertEquals(1, rows);
             
-            returnedRecord = mapper.selectByPrimaryKey(record.getId());
+            returnedRecord = mapper.selectById(record.getId());
             assertNotNull(returnedRecord);
             assertTrue(TestUtilities.blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
             
-            rows = mapper.deleteByPrimaryKey(record.getId());
+            rows = mapper.deleteById(record.getId());
             assertEquals(1, rows);
             
             records = mapper.selectAll();
@@ -403,19 +403,19 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
             List<Pkfieldsblobs> records = mapper.selectAll();
             assertEquals(2, records.size());
             
-            Pkfieldsblobs returnedRecord = mapper.selectByPrimaryKey(record.getId1(), record.getId2());
+            Pkfieldsblobs returnedRecord = mapper.selectById(record.getId1(), record.getId2());
             assertNotNull(returnedRecord);
             assertTrue(TestUtilities.blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
             
             record.setBlob1(TestUtilities.generateRandomBlob());
-            rows = mapper.updateByPrimaryKey(record);
+            rows = mapper.updateById(record);
             assertEquals(1, rows);
             
-            returnedRecord = mapper.selectByPrimaryKey(record.getId1(), record.getId2());
+            returnedRecord = mapper.selectById(record.getId1(), record.getId2());
             assertNotNull(returnedRecord);
             assertTrue(TestUtilities.blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
             
-            rows = mapper.deleteByPrimaryKey(record.getId1(), record.getId2());
+            rows = mapper.deleteById(record.getId1(), record.getId2());
             assertEquals(1, rows);
             
             records = mapper.selectAll();
@@ -456,7 +456,7 @@ public class SimpleAnnotatedTest extends AbstractSimpleAnnotatedTest {
             List<Pkonly> records = mapper.selectAll();
             assertEquals(4, records.size());
             
-            mapper.deleteByPrimaryKey(record.getId(), record.getSeqNum());
+            mapper.deleteById(record.getId(), record.getSeqNum());
             
             records = mapper.selectAll();
             assertEquals(3, records.size());

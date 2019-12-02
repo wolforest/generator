@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -321,7 +321,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             List<Pkonly> answer = mapper.selectByExample(example);
             assertEquals(2, answer.size());
 
-            rows = mapper.deleteByPrimaryKey(5, 6);
+            rows = mapper.deleteById(5, 6);
             assertEquals(1, rows);
 
             answer = mapper.selectByExample(example);
@@ -480,7 +480,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             mapper.insert(record);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(2, 1);
+            Pkfields returnedRecord = mapper.selectById(2, 1);
             assertNotNull(returnedRecord);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
@@ -523,10 +523,10 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             record.setFirstname("Scott");
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
-            Pkfields record2 = mapper.selectByPrimaryKey(2, 1);
+            Pkfields record2 = mapper.selectById(2, 1);
 
             assertEquals(record.getFirstname(), record2.getFirstname());
             assertEquals(record.getLastname(), record2.getLastname());
@@ -558,10 +558,10 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             newRecord.setFirstname("Scott");
             newRecord.setDecimal60field(4);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
-            Pkfields returnedRecord = mapper.selectByPrimaryKey(2, 1);
+            Pkfields returnedRecord = mapper.selectById(2, 1);
 
             assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
                     .getDatefield()));
@@ -601,7 +601,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             mapper.insert(record);
 
-            int rows = mapper.deleteByPrimaryKey(2, 1);
+            int rows = mapper.deleteById(2, 1);
             assertEquals(1, rows);
 
             PkfieldsExample example = new PkfieldsExample();
@@ -670,7 +670,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             record.setId2(4);
             mapper.insert(record);
 
-            Pkfields newRecord = mapper.selectByPrimaryKey(4, 3);
+            Pkfields newRecord = mapper.selectById(4, 3);
 
             assertNotNull(newRecord);
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -1287,7 +1287,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             int rows = mapper.updateByPrimaryKeyWithBLOBs(record);
             assertEquals(1, rows);
 
-            Pkblobs newRecord = mapper.selectByPrimaryKey(3);
+            Pkblobs newRecord = mapper.selectById(3);
 
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
@@ -1313,9 +1313,9 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Pkblobs newRecord = new Pkblobs();
             newRecord.setId(3);
             newRecord.setBlob2(generateRandomBlob());
-            mapper.updateByPrimaryKeySelective(newRecord);
+            mapper.updateByIdSelective(newRecord);
 
-            Pkblobs returnedRecord = mapper.selectByPrimaryKey(3);
+            Pkblobs returnedRecord = mapper.selectById(3);
             assertNotNull(returnedRecord);
             assertEquals(record.getId(), returnedRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
@@ -1343,7 +1343,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             List<Pkblobs> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
 
-            int rows = mapper.deleteByPrimaryKey(3);
+            int rows = mapper.deleteById(3);
             assertEquals(1, rows);
 
             example = new PkblobsExample();
@@ -1407,7 +1407,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
 
-            Pkblobs newRecord = mapper.selectByPrimaryKey(6);
+            Pkblobs newRecord = mapper.selectById(6);
             assertNotNull(newRecord);
             assertEquals(record.getId(), newRecord.getId());
             assertTrue(blobsAreEqual(record.getBlob1(), newRecord.getBlob1()));
@@ -1596,7 +1596,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             int rows = mapper.updateByPrimaryKeyWithBLOBs(updateRecord);
             assertEquals(1, rows);
 
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(3, 4);
+            Pkfieldsblobs newRecord = mapper.selectById(3, 4);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1628,10 +1628,10 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             updateRecord.setFirstname("Scott");
             updateRecord.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(updateRecord);
+            int rows = mapper.updateById(updateRecord);
             assertEquals(1, rows);
 
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(3, 4);
+            Pkfieldsblobs newRecord = mapper.selectById(3, 4);
             assertEquals(updateRecord.getFirstname(), newRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
@@ -1661,10 +1661,10 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             updateRecord.setId2(4);
             updateRecord.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKeySelective(updateRecord);
+            int rows = mapper.updateByIdSelective(updateRecord);
             assertEquals(1, rows);
 
-            Pkfieldsblobs returnedRecord = mapper.selectByPrimaryKey(3, 4);
+            Pkfieldsblobs returnedRecord = mapper.selectById(3, 4);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(updateRecord.getLastname(), returnedRecord
                     .getLastname());
@@ -1704,7 +1704,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
                     .selectByExample(example);
             assertEquals(2, answer.size());
 
-            int rows = mapper.deleteByPrimaryKey(5, 6);
+            int rows = mapper.deleteById(5, 6);
             assertEquals(1, rows);
 
             example = new PkfieldsblobsExample();
@@ -1782,7 +1782,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
                     .selectByExample(example);
             assertEquals(2, answer.size());
 
-            Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(5, 6);
+            Pkfieldsblobs newRecord = mapper.selectById(5, 6);
             assertEquals(record.getId1(), newRecord.getId1());
             assertEquals(record.getId2(), newRecord.getId2());
             assertEquals(record.getFirstname(), newRecord.getFirstname());
@@ -2124,8 +2124,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2171,8 +2170,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2219,10 +2217,10 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             record.setId1(11);
             record.setId2(22);
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2272,10 +2270,10 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             newRecord.setId1(11);
             newRecord.setId2(22);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
@@ -2320,7 +2318,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             mapper.insert(record);
             Integer generatedCustomerId = record.getCustomerId();
 
-            int rows = mapper.deleteByPrimaryKey(generatedCustomerId);
+            int rows = mapper.deleteById(generatedCustomerId);
             assertEquals(1, rows);
 
             AwfulTableExample example = new AwfulTableExample();
@@ -2421,7 +2419,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             mapper.insert(record);
             Integer generatedKey = record.getCustomerId();
 
-            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedKey);
+            AwfulTable returnedRecord = mapper.selectById(generatedKey);
 
             assertNotNull(returnedRecord);
             assertEquals(record.getCustomerId(), returnedRecord.getCustomerId());
