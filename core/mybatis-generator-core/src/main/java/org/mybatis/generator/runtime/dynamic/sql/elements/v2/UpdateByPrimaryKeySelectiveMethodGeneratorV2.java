@@ -46,7 +46,7 @@ public class UpdateByPrimaryKeySelectiveMethodGeneratorV2 extends AbstractMethod
 
         imports.add(recordType);
         
-        Method method = new Method("updateByPrimaryKeySelective"); //$NON-NLS-1$
+        Method method = new Method("updateByIdSelective"); //$NON-NLS-1$
         method.setDefault(true);
         context.getCommentGenerator().addGeneralMethodAnnotation(method, introspectedTable, imports);
         

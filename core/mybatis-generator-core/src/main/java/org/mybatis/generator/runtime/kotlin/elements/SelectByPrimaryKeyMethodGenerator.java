@@ -36,7 +36,7 @@ public class SelectByPrimaryKeyMethodGenerator extends AbstractKotlinFunctionGen
         }
 
         KotlinFunctionAndImports functionAndImports = KotlinFunctionAndImports.withFunction(
-                KotlinFunction.newOneLineFunction(mapperName + ".selectByPrimaryKey") //$NON-NLS-1$
+                KotlinFunction.newOneLineFunction(mapperName + ".selectById") //$NON-NLS-1$
                 .withCodeLine("selectOne {") //$NON-NLS-1$
                 .build())
                 .withImport("org.mybatis.dynamic.sql.SqlBuilder.isEqualTo") //$NON-NLS-1$

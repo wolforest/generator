@@ -48,7 +48,7 @@ public class SelectByPrimaryKeyMethodGeneratorV2 extends AbstractMethodGenerator
         returnType.addTypeArgument(recordType);
         imports.add(returnType);
         
-        Method method = new Method("selectByPrimaryKey"); //$NON-NLS-1$
+        Method method = new Method("selectById"); //$NON-NLS-1$
         method.setDefault(true);
         context.getCommentGenerator().addGeneralMethodAnnotation(method, introspectedTable, imports);
         method.setReturnType(returnType);

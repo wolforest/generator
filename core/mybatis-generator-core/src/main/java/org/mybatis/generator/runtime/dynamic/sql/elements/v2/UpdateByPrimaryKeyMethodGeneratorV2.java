@@ -46,7 +46,7 @@ public class UpdateByPrimaryKeyMethodGeneratorV2 extends AbstractMethodGenerator
 
         imports.add(recordType);
         
-        Method method = new Method("updateByPrimaryKey"); //$NON-NLS-1$
+        Method method = new Method("updateById"); //$NON-NLS-1$
         method.setDefault(true);
         context.getCommentGenerator().addGeneralMethodAnnotation(method, introspectedTable, imports);
         

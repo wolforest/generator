@@ -70,7 +70,7 @@ class GeneratedAlwaysNoUpdatesTest : AbstractAnnotatedMiscellaneousTest() {
     fun testThatUpdatesByPrimaryKeyDidNotGetGenerated() {
         val methods = GeneratedalwaystestnoupdatesMapper::class.java.methods
         for (method in methods) {
-            if (method.name.startsWith("updateByPrimaryKey")) {
+            if (method.name.startsWith("updateById")) {
                 fail<Any>("Method " + method.name + " should not be generated")
             }
         }

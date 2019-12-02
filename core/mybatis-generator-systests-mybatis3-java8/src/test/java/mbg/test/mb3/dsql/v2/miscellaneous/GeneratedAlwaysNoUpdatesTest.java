@@ -75,7 +75,7 @@ public class GeneratedAlwaysNoUpdatesTest extends AbstractAnnotatedMiscellaneous
     public void testThatUpdatesByPrimaryKeyDidNotGetGenerated() {
         Method[] methods = GeneratedalwaystestnoupdatesMapper.class.getMethods();
         for (Method method : methods) {
-            if (method.getName().startsWith("updateByPrimaryKey")) {
+            if (method.getName().startsWith("updateById")) {
                 fail("Method " + method.getName() + " should not be generated");
             }
         }
