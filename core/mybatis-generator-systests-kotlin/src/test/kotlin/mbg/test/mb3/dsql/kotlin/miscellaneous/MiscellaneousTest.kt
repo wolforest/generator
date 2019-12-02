@@ -66,7 +66,7 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
 
             mapper.insert(record)
 
-            val returnedRecord = mapper.selectByPrimaryKey(2, 1)
+            val returnedRecord = mapper.selectById(2, 1)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
@@ -103,10 +103,10 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
             record.firstname = fn
             record.lastname = "Jones"
 
-            val rows = mapper.updateByPrimaryKey(record)
+            val rows = mapper.updateById(record)
             assertEquals(1, rows)
 
-            val record2 = mapper.selectByPrimaryKey(2, 1)
+            val record2 = mapper.selectById(2, 1)
 
             assertThat(record2).isNotNull()
             if (record2 != null) {
@@ -141,10 +141,10 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
             newRecord.firstname = fn
             record.startDate = Date()
 
-            val rows = mapper.updateByPrimaryKeySelective(newRecord)
+            val rows = mapper.updateByIdSelective(newRecord)
             assertEquals(1, rows)
 
-            val returnedRecord = mapper.selectByPrimaryKey(2, 1)
+            val returnedRecord = mapper.selectById(2, 1)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
@@ -176,7 +176,7 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
 
             mapper.insert(record)
 
-            val rows = mapper.deleteByPrimaryKey(2, 1)
+            val rows = mapper.deleteById(2, 1)
             assertEquals(1, rows)
 
             val answer = mapper.select { allRows() }
@@ -241,7 +241,7 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
             record1.id2 = 4
             mapper.insert(record1)
 
-            val newRecord = mapper.selectByPrimaryKey(4, 3)
+            val newRecord = mapper.selectById(4, 3)
 
             assertThat(newRecord).isNotNull()
             if (newRecord != null) {
@@ -813,7 +813,7 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
             // test generated id
             assertEquals(1, record.id)
 
-            val returnedRecord = mapper.selectByPrimaryKey(1)
+            val returnedRecord = mapper.selectById(1)
 
             assertThat(returnedRecord).isNotNull()
             if(returnedRecord != null) {
@@ -835,7 +835,7 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
             mapper.insertSelective(record)
             assertEquals(1, record.id)
 
-            val returnedRecord = mapper.selectByPrimaryKey(1)
+            val returnedRecord = mapper.selectById(1)
 
             assertThat(returnedRecord).isNotNull()
             if(returnedRecord != null) {

@@ -220,7 +220,7 @@ class GeneratedAlwaysTest : AbstractAnnotatedMiscellaneousTest() {
             gaTest.idPlus1 = 77 // should be ignored
             gaTest.idPlus2 = 88 // should be ignored
             gaTest.blob1 = generateRandomBlob()
-            rows = mapper.updateByPrimaryKey(gaTest)
+            rows = mapper.updateById(gaTest)
             assertEquals(1, rows)
 
             val returnedRecords = mapper.select { allRows() }
@@ -253,7 +253,7 @@ class GeneratedAlwaysTest : AbstractAnnotatedMiscellaneousTest() {
             gaTest.idPlus1 = 77 // should be ignored
             gaTest.idPlus2 = 88 // should be ignored
             gaTest.blob1 = generateRandomBlob()
-            rows = mapper.updateByPrimaryKeySelective(gaTest)
+            rows = mapper.updateByIdSelective(gaTest)
             assertEquals(1, rows)
 
             val returnedRecords = mapper.select { allRows() }
@@ -286,7 +286,7 @@ class GeneratedAlwaysTest : AbstractAnnotatedMiscellaneousTest() {
             gaTest.idPlus1 = 77 // should be ignored
             gaTest.idPlus2 = 88 // should be ignored
             gaTest.blob1 = generateRandomBlob()
-            rows = mapper.updateByPrimaryKey(gaTest)
+            rows = mapper.updateById(gaTest)
             assertEquals(1, rows)
 
             val returnedRecords = mapper.select { allRows() }

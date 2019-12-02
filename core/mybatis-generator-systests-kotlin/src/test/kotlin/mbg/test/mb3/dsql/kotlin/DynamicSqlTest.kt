@@ -212,7 +212,7 @@ class DynamicSqlTest : AbstractTest() {
             var answer = mapper.select { allRows() }
             assertThat(answer).hasSize(2)
 
-            val rows = mapper.deleteByPrimaryKey(5, 6)
+            val rows = mapper.deleteById(5, 6)
             assertThat(rows).isEqualTo(1)
 
             answer = mapper.select { allRows() }
@@ -369,7 +369,7 @@ class DynamicSqlTest : AbstractTest() {
 
             mapper.insert(record)
 
-            val returnedRecord = mapper.selectByPrimaryKey(2, 1)
+            val returnedRecord = mapper.selectById(2, 1)
 
             assertThat(returnedRecord).isNotNull()
             assertThat(returnedRecord).isEqualToComparingFieldByField(record)
@@ -391,10 +391,10 @@ class DynamicSqlTest : AbstractTest() {
             record.firstname = "Scott"
             record.lastname = "Jones"
 
-            val rows = mapper.updateByPrimaryKey(record)
+            val rows = mapper.updateById(record)
             assertThat(rows).isEqualTo(1)
 
-            val record2 = mapper.selectByPrimaryKey(2, 1)
+            val record2 = mapper.selectById(2, 1)
 
             assertThat(record2).isNotNull()
             if (record2 != null) {
@@ -414,10 +414,10 @@ class DynamicSqlTest : AbstractTest() {
             mapper.insert(record)
 
             val newRecord = PkfieldsRecord(id1 = 1, id2 = 2, firstname = "Scott", decimal60field = 4)
-            val rows = mapper.updateByPrimaryKeySelective(newRecord)
+            val rows = mapper.updateByIdSelective(newRecord)
             assertThat(rows).isEqualTo(1)
 
-            val returnedRecord = mapper.selectByPrimaryKey(2, 1)
+            val returnedRecord = mapper.selectById(2, 1)
 
             assertThat(returnedRecord).isNotNull()
             if(returnedRecord != null) {
@@ -443,7 +443,7 @@ class DynamicSqlTest : AbstractTest() {
             val record = PkfieldsRecord(id1 = 1, id2 = 2, firstname = "Jeff", lastname = "Smith")
             mapper.insert(record)
 
-            val rows = mapper.deleteByPrimaryKey(2, 1)
+            val rows = mapper.deleteById(2, 1)
             assertThat(rows).isEqualTo(1)
 
             val answer = mapper.select { allRows() }
@@ -480,7 +480,7 @@ class DynamicSqlTest : AbstractTest() {
             val record1 = PkfieldsRecord(id1 = 3, id2 = 4, firstname = "Bob", lastname = "Jones")
             mapper.insert(record1)
 
-            val newRecord = mapper.selectByPrimaryKey(4, 3)
+            val newRecord = mapper.selectById(4, 3)
 
             assertThat(newRecord).isNotNull()
             if (newRecord != null) {
@@ -730,10 +730,10 @@ class DynamicSqlTest : AbstractTest() {
             mapper.insert(PkblobsRecord(3, generateRandomBlob(), generateRandomBlob()))
 
             val record1 = PkblobsRecord(3, generateRandomBlob(), generateRandomBlob())
-            val rows = mapper.updateByPrimaryKey(record1)
+            val rows = mapper.updateById(record1)
             assertThat(rows).isEqualTo(1)
 
-            val newRecord = mapper.selectByPrimaryKey(3)
+            val newRecord = mapper.selectById(3)
 
             assertThat(newRecord).isNotNull()
             assertThat(newRecord!!.id).isEqualTo(record1.id)
@@ -750,9 +750,9 @@ class DynamicSqlTest : AbstractTest() {
             mapper.insert(record)
 
             val newRecord = PkblobsRecord(id = 3, blob2 = generateRandomBlob())
-            mapper.updateByPrimaryKeySelective(newRecord)
+            mapper.updateByIdSelective(newRecord)
 
-            val returnedRecord = mapper.selectByPrimaryKey(3)
+            val returnedRecord = mapper.selectById(3)
 
             assertThat(returnedRecord).isNotNull()
             assertThat(returnedRecord!!.id).isEqualTo(record.id)
@@ -770,7 +770,7 @@ class DynamicSqlTest : AbstractTest() {
             var answer = mapper.select { allRows() }
             assertThat(answer).hasSize(1)
 
-            val rows = mapper.deleteByPrimaryKey(3)
+            val rows = mapper.deleteById(3)
             assertThat(rows).isEqualTo(1)
 
             answer = mapper.select { allRows() }
@@ -812,7 +812,7 @@ class DynamicSqlTest : AbstractTest() {
             record1.blob2 = generateRandomBlob()
             mapper.insert(record1)
 
-            val newRecord = mapper.selectByPrimaryKey(6)
+            val newRecord = mapper.selectById(6)
 
             assertThat(newRecord).isNotNull()
             if (newRecord != null) {
@@ -954,10 +954,10 @@ class DynamicSqlTest : AbstractTest() {
             updateRecord.lastname = "Jones"
             updateRecord.blob1 = generateRandomBlob()
 
-            val rows = mapper.updateByPrimaryKey(updateRecord)
+            val rows = mapper.updateById(updateRecord)
             assertEquals(1, rows)
 
-            val newRecord = mapper.selectByPrimaryKey(3, 4)
+            val newRecord = mapper.selectById(3, 4)
 
             assertThat(newRecord).isNotNull()
             if (newRecord != null) {
@@ -988,10 +988,10 @@ class DynamicSqlTest : AbstractTest() {
             updateRecord.id2 = 4
             updateRecord.lastname = "Jones"
 
-            val rows = mapper.updateByPrimaryKeySelective(updateRecord)
+            val rows = mapper.updateByIdSelective(updateRecord)
             assertEquals(1, rows)
 
-            val returnedRecord = mapper.selectByPrimaryKey(3, 4)
+            val returnedRecord = mapper.selectById(3, 4)
 
             assertThat(returnedRecord).isNotNull()
             assertEquals(record.firstname, returnedRecord!!.firstname)
@@ -1026,7 +1026,7 @@ class DynamicSqlTest : AbstractTest() {
             var answer = mapper.select { allRows() }
             assertEquals(2, answer.size)
 
-            val rows = mapper.deleteByPrimaryKey(5, 6)
+            val rows = mapper.deleteById(5, 6)
             assertEquals(1, rows)
 
             answer = mapper.select { allRows() }
@@ -1090,7 +1090,7 @@ class DynamicSqlTest : AbstractTest() {
             val answer = mapper.select { allRows() }
             assertEquals(2, answer.size)
 
-            val newRecord = mapper.selectByPrimaryKey(5, 6)
+            val newRecord = mapper.selectById(5, 6)
 
             assertThat(newRecord).isNotNull()
             if (newRecord != null) {
@@ -1398,8 +1398,7 @@ class DynamicSqlTest : AbstractTest() {
             val generatedCustomerId = record.customerId
             assertEquals(57, generatedCustomerId!!.toInt())
 
-            val returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId)
+            val returnedRecord = mapper.selectById(generatedCustomerId)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
@@ -1447,8 +1446,7 @@ class DynamicSqlTest : AbstractTest() {
             val generatedCustomerId = record.customerId
             assertEquals(57, generatedCustomerId!!.toInt())
 
-            val returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId)
+            val returnedRecord = mapper.selectById(generatedCustomerId)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
@@ -1492,10 +1490,10 @@ class DynamicSqlTest : AbstractTest() {
             record.id1 = 11
             record.id2 = 22
 
-            val rows = mapper.updateByPrimaryKey(record)
+            val rows = mapper.updateById(record)
             assertEquals(1, rows)
 
-            val returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId)
+            val returnedRecord = mapper.selectById(generatedCustomerId)
 
             assertThat(returnedRecord).isNotNull()
             assertThat(returnedRecord).isEqualToComparingFieldByField(record)
@@ -1528,10 +1526,10 @@ class DynamicSqlTest : AbstractTest() {
             newRecord.id1 = 11
             newRecord.id2 = 22
 
-            val rows = mapper.updateByPrimaryKeySelective(newRecord)
+            val rows = mapper.updateByIdSelective(newRecord)
             assertEquals(1, rows)
 
-            val returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId)
+            val returnedRecord = mapper.selectById(generatedCustomerId)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
@@ -1572,7 +1570,7 @@ class DynamicSqlTest : AbstractTest() {
             mapper.insert(record)
             val generatedCustomerId = record.customerId
 
-            val rows = mapper.deleteByPrimaryKey(generatedCustomerId!!)
+            val rows = mapper.deleteById(generatedCustomerId!!)
             assertEquals(1, rows)
 
             val answer = mapper.select { allRows() }
@@ -1662,7 +1660,7 @@ class DynamicSqlTest : AbstractTest() {
             mapper.insert(record1)
             val generatedKey = record1.customerId!!
 
-            val returnedRecord = mapper.selectByPrimaryKey(generatedKey)
+            val returnedRecord = mapper.selectById(generatedKey)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
@@ -2490,7 +2488,7 @@ class DynamicSqlTest : AbstractTest() {
             val t1 = TranslationRecord(2, "French")
             mapper.insert(t1)
 
-            var returnedRecord = mapper.selectByPrimaryKey(2)
+            var returnedRecord = mapper.selectById(2)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
@@ -2499,9 +2497,9 @@ class DynamicSqlTest : AbstractTest() {
             }
 
             t1.translation = "Italian"
-            mapper.updateByPrimaryKey(t1)
+            mapper.updateById(t1)
 
-            returnedRecord = mapper.selectByPrimaryKey(2)
+            returnedRecord = mapper.selectById(2)
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
                 assertEquals(t1.id, returnedRecord.id)
@@ -2525,7 +2523,7 @@ class DynamicSqlTest : AbstractTest() {
             id1.description = "French"
             mapper.insert(id1)
 
-            var returnedRecord = mapper.selectByPrimaryKey(2)
+            var returnedRecord = mapper.selectById(2)
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
                 assertEquals(id1.id!!, returnedRecord.id)
@@ -2533,9 +2531,9 @@ class DynamicSqlTest : AbstractTest() {
             }
 
             id1.description = "Italian"
-            mapper.updateByPrimaryKey(id1)
+            mapper.updateById(id1)
 
-            returnedRecord = mapper.selectByPrimaryKey(2)
+            returnedRecord = mapper.selectById(2)
 
             assertThat(returnedRecord).isNotNull()
             if (returnedRecord != null) {
