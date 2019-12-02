@@ -75,7 +75,7 @@ public class MiscellaneousTest extends AbstractAnnotatedMiscellaneousTest {
 
             mapper.insert(record);
 
-            Optional<MyObject> returnedRecord = mapper.selectByPrimaryKey(2, 1);
+            Optional<MyObject> returnedRecord = mapper.selectById(2, 1);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertTrue(datesAreEqual(record.getStartDate(), rr.getStartDate()));
@@ -111,10 +111,10 @@ public class MiscellaneousTest extends AbstractAnnotatedMiscellaneousTest {
             record.setFirstname(fn);
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
-            Optional<MyObject> record2 = mapper.selectByPrimaryKey(2, 1);
+            Optional<MyObject> record2 = mapper.selectById(2, 1);
 
             assertThat(record2).hasValueSatisfying(r2 -> {
                 assertEquals(record.getFirstname(), r2.getFirstname());
@@ -148,10 +148,10 @@ public class MiscellaneousTest extends AbstractAnnotatedMiscellaneousTest {
             newRecord.setFirstname(fn);
             record.setStartDate(new Date());
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
-            Optional<MyObject> returnedRecord = mapper.selectByPrimaryKey(2, 1);
+            Optional<MyObject> returnedRecord = mapper.selectById(2, 1);
 
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertTrue(datesAreEqual(newRecord.getStartDate(), rr.getStartDate()));
@@ -186,7 +186,7 @@ public class MiscellaneousTest extends AbstractAnnotatedMiscellaneousTest {
 
             mapper.insert(record);
 
-            int rows = mapper.deleteByPrimaryKey(2, 1);
+            int rows = mapper.deleteById(2, 1);
             assertEquals(1, rows);
 
             List<MyObject> answer = mapper.select(SelectDSLCompleter.allRows());
@@ -252,7 +252,7 @@ public class MiscellaneousTest extends AbstractAnnotatedMiscellaneousTest {
             record1.setId2(4);
             mapper.insert(record1);
 
-            Optional<MyObject> newRecord = mapper.selectByPrimaryKey(4, 3);
+            Optional<MyObject> newRecord = mapper.selectById(4, 3);
 
             assertThat(newRecord).hasValueSatisfying(nr -> {
                 assertEquals(record1.getFirstname(), nr.getFirstname());
@@ -849,7 +849,7 @@ public class MiscellaneousTest extends AbstractAnnotatedMiscellaneousTest {
             // test generated id
             assertEquals(1, record.getId());
             
-            Optional<Regexrename> returnedRecord = mapper.selectByPrimaryKey(1);
+            Optional<Regexrename> returnedRecord = mapper.selectById(1);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(record.getAddress(), rr.getAddress());
@@ -870,7 +870,7 @@ public class MiscellaneousTest extends AbstractAnnotatedMiscellaneousTest {
             mapper.insertSelective(record);
             assertEquals(1, record.getId());
             
-            Optional<Regexrename> returnedRecord = mapper.selectByPrimaryKey(1);
+            Optional<Regexrename> returnedRecord = mapper.selectById(1);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertNull(rr.getAddress());

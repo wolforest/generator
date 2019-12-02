@@ -324,7 +324,7 @@ public class DynamicSqlTest extends AbstractTest {
             List<Pkonly> answer = mapper.select(SelectDSLCompleter.allRows());
             assertThat(answer.size()).isEqualTo(2);
 
-            rows = mapper.deleteByPrimaryKey(5, 6);
+            rows = mapper.deleteById(5, 6);
             assertThat(rows).isEqualTo(1);
 
             answer = mapper.select(SelectDSLCompleter.allRows());
@@ -513,7 +513,7 @@ public class DynamicSqlTest extends AbstractTest {
 
             mapper.insert(record);
 
-            Optional<Pkfields> returnedRecord = mapper.selectByPrimaryKey(2, 1);
+            Optional<Pkfields> returnedRecord = mapper.selectById(2, 1);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(record.getDatefield(), rr.getDatefield());
@@ -548,10 +548,10 @@ public class DynamicSqlTest extends AbstractTest {
             record.setFirstname("Scott");
             record.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
-            Optional<Pkfields> record2 = mapper.selectByPrimaryKey(2, 1);
+            Optional<Pkfields> record2 = mapper.selectById(2, 1);
 
             assertThat(record2).hasValueSatisfying(r2 -> {
                 assertEquals(record.getFirstname(), r2.getFirstname());
@@ -582,10 +582,10 @@ public class DynamicSqlTest extends AbstractTest {
             newRecord.setFirstname("Scott");
             newRecord.setDecimal60field(4);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
-            Optional<Pkfields> returnedRecord = mapper.selectByPrimaryKey(2, 1);
+            Optional<Pkfields> returnedRecord = mapper.selectById(2, 1);
 
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(record.getDatefield(), rr.getDatefield());
@@ -616,7 +616,7 @@ public class DynamicSqlTest extends AbstractTest {
 
             mapper.insert(record);
 
-            int rows = mapper.deleteByPrimaryKey(2, 1);
+            int rows = mapper.deleteById(2, 1);
             assertEquals(1, rows);
 
             List<Pkfields> answer = mapper.select(SelectDSLCompleter.allRows());
@@ -675,7 +675,7 @@ public class DynamicSqlTest extends AbstractTest {
             record1.setId2(4);
             mapper.insert(record1);
 
-            Optional<Pkfields> newRecord = mapper.selectByPrimaryKey(4, 3);
+            Optional<Pkfields> newRecord = mapper.selectById(4, 3);
 
             assertThat(newRecord).hasValueSatisfying(nr -> {
                 assertEquals(record1.getFirstname(), nr.getFirstname());
@@ -1242,10 +1242,10 @@ public class DynamicSqlTest extends AbstractTest {
             record1.setId(3);
             record1.setBlob1(generateRandomBlob());
             record1.setBlob2(generateRandomBlob());
-            int rows = mapper.updateByPrimaryKey(record1);
+            int rows = mapper.updateById(record1);
             assertEquals(1, rows);
 
-            Optional<Pkblobs> newRecord = mapper.selectByPrimaryKey(3);
+            Optional<Pkblobs> newRecord = mapper.selectById(3);
             
             assertThat(newRecord).hasValueSatisfying(nr -> {
                 assertEquals(record1.getId(), nr.getId());
@@ -1269,9 +1269,9 @@ public class DynamicSqlTest extends AbstractTest {
             Pkblobs newRecord = new Pkblobs();
             newRecord.setId(3);
             newRecord.setBlob2(generateRandomBlob());
-            mapper.updateByPrimaryKeySelective(newRecord);
+            mapper.updateByIdSelective(newRecord);
 
-            Optional<Pkblobs> returnedRecord = mapper.selectByPrimaryKey(3);
+            Optional<Pkblobs> returnedRecord = mapper.selectById(3);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(record.getId(), rr.getId());
@@ -1295,7 +1295,7 @@ public class DynamicSqlTest extends AbstractTest {
             List<Pkblobs> answer = mapper.select(SelectDSLCompleter.allRows());
             assertEquals(1, answer.size());
 
-            int rows = mapper.deleteByPrimaryKey(3);
+            int rows = mapper.deleteById(3);
             assertEquals(1, rows);
 
             answer = mapper.select(SelectDSLCompleter.allRows());
@@ -1349,7 +1349,7 @@ public class DynamicSqlTest extends AbstractTest {
             record1.setBlob2(generateRandomBlob());
             mapper.insert(record1);
 
-            Optional<Pkblobs> newRecord = mapper.selectByPrimaryKey(6);
+            Optional<Pkblobs> newRecord = mapper.selectById(6);
             
             assertThat(newRecord).hasValueSatisfying(nr -> {
                 assertEquals(record1.getId(), nr.getId());
@@ -1494,10 +1494,10 @@ public class DynamicSqlTest extends AbstractTest {
             updateRecord.setLastname("Jones");
             updateRecord.setBlob1(generateRandomBlob());
 
-            int rows = mapper.updateByPrimaryKey(updateRecord);
+            int rows = mapper.updateById(updateRecord);
             assertEquals(1, rows);
 
-            Optional<Pkfieldsblobs> newRecord = mapper.selectByPrimaryKey(3, 4);
+            Optional<Pkfieldsblobs> newRecord = mapper.selectById(3, 4);
             
             assertThat(newRecord).hasValueSatisfying(nr -> {
                 assertEquals(updateRecord.getFirstname(), nr.getFirstname());
@@ -1527,10 +1527,10 @@ public class DynamicSqlTest extends AbstractTest {
             updateRecord.setId2(4);
             updateRecord.setLastname("Jones");
 
-            int rows = mapper.updateByPrimaryKeySelective(updateRecord);
+            int rows = mapper.updateByIdSelective(updateRecord);
             assertEquals(1, rows);
 
-            Optional<Pkfieldsblobs> returnedRecord = mapper.selectByPrimaryKey(3, 4);
+            Optional<Pkfieldsblobs> returnedRecord = mapper.selectById(3, 4);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(record.getFirstname(), rr.getFirstname());
@@ -1566,7 +1566,7 @@ public class DynamicSqlTest extends AbstractTest {
             List<Pkfieldsblobs> answer = mapper.select(SelectDSLCompleter.allRows());
             assertEquals(2, answer.size());
 
-            int rows = mapper.deleteByPrimaryKey(5, 6);
+            int rows = mapper.deleteById(5, 6);
             assertEquals(1, rows);
 
             answer = mapper.select(SelectDSLCompleter.allRows());
@@ -1631,7 +1631,7 @@ public class DynamicSqlTest extends AbstractTest {
             List<Pkfieldsblobs> answer = mapper.select(SelectDSLCompleter.allRows());
             assertEquals(2, answer.size());
 
-            Optional<Pkfieldsblobs> newRecord = mapper.selectByPrimaryKey(5, 6);
+            Optional<Pkfieldsblobs> newRecord = mapper.selectById(5, 6);
             
             assertThat(newRecord).hasValueSatisfying(nr -> {
                 assertEquals(record1.getId1(), nr.getId1());
@@ -1945,8 +1945,7 @@ public class DynamicSqlTest extends AbstractTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            Optional<AwfulTable> returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            Optional<AwfulTable> returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(generatedCustomerId, rr.getCustomerId());
@@ -1993,8 +1992,7 @@ public class DynamicSqlTest extends AbstractTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            Optional<AwfulTable> returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            Optional<AwfulTable> returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(generatedCustomerId, rr.getCustomerId());
@@ -2037,10 +2035,10 @@ public class DynamicSqlTest extends AbstractTest {
             record.setId1(11);
             record.setId2(22);
 
-            int rows = mapper.updateByPrimaryKey(record);
+            int rows = mapper.updateById(record);
             assertEquals(1, rows);
 
-            Optional<AwfulTable> returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
+            Optional<AwfulTable> returnedRecord = mapper.selectById(generatedCustomerId);
 
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(generatedCustomerId, rr.getCustomerId());
@@ -2085,10 +2083,10 @@ public class DynamicSqlTest extends AbstractTest {
             newRecord.setId1(11);
             newRecord.setId2(22);
 
-            int rows = mapper.updateByPrimaryKeySelective(newRecord);
+            int rows = mapper.updateByIdSelective(newRecord);
             assertEquals(1, rows);
 
-            Optional<AwfulTable> returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
+            Optional<AwfulTable> returnedRecord = mapper.selectById(generatedCustomerId);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(generatedCustomerId, rr.getCustomerId());
@@ -2128,7 +2126,7 @@ public class DynamicSqlTest extends AbstractTest {
             mapper.insert(record);
             Integer generatedCustomerId = record.getCustomerId();
 
-            int rows = mapper.deleteByPrimaryKey(generatedCustomerId);
+            int rows = mapper.deleteById(generatedCustomerId);
             assertEquals(1, rows);
 
             List<AwfulTable> answer = mapper.select(SelectDSLCompleter.allRows());
@@ -2219,7 +2217,7 @@ public class DynamicSqlTest extends AbstractTest {
             mapper.insert(record1);
             Integer generatedKey = record1.getCustomerId();
 
-            Optional<AwfulTable> returnedRecord = mapper.selectByPrimaryKey(generatedKey);
+            Optional<AwfulTable> returnedRecord = mapper.selectById(generatedKey);
 
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(record1.getCustomerId(), rr.getCustomerId());
@@ -3042,7 +3040,7 @@ public class DynamicSqlTest extends AbstractTest {
             t1.setTranslation("French");
             mapper.insert(t1);
             
-            Optional<Translation> returnedRecord = mapper.selectByPrimaryKey(2);
+            Optional<Translation> returnedRecord = mapper.selectById(2);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(t1.getId(), rr.getId());
@@ -3050,9 +3048,9 @@ public class DynamicSqlTest extends AbstractTest {
             });
             
             t1.setTranslation("Italian");
-            mapper.updateByPrimaryKey(t1);
+            mapper.updateById(t1);
             
-            returnedRecord = mapper.selectByPrimaryKey(2);
+            returnedRecord = mapper.selectById(2);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(t1.getId(), rr.getId());
@@ -3076,7 +3074,7 @@ public class DynamicSqlTest extends AbstractTest {
             id1.setDescription("French");
             mapper.insert(id1);
             
-            Optional<Id> returnedRecord = mapper.selectByPrimaryKey(2);
+            Optional<Id> returnedRecord = mapper.selectById(2);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(id1.getId(), rr.getId());
@@ -3084,9 +3082,9 @@ public class DynamicSqlTest extends AbstractTest {
             });
             
             id1.setDescription("Italian");
-            mapper.updateByPrimaryKey(id1);
+            mapper.updateById(id1);
             
-            returnedRecord = mapper.selectByPrimaryKey(2);
+            returnedRecord = mapper.selectById(2);
             
             assertThat(returnedRecord).hasValueSatisfying(rr -> {
                 assertEquals(id1.getId(), rr.getId());
