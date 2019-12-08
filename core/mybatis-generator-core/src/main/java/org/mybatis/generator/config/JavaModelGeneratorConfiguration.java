@@ -30,6 +30,7 @@ public class JavaModelGeneratorConfiguration extends PropertyHolder {
         super();
     }
 
+    //getter & setter
     public String getTargetProject() {
         return targetProject;
     }
@@ -56,4 +57,8 @@ public class JavaModelGeneratorConfiguration extends PropertyHolder {
                     "JavaModelGenerator", contextId)); //$NON-NLS-1$
         }
     }
+
+
+
+
 }
