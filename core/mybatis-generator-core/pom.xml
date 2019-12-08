@@ -160,6 +160,17 @@
   </build>
   
   <dependencies>
+
+    <!-- add by wingle start -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.47</version>
+    </dependency>
+
+    <!-- add by wingle end -->
+
+
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -224,6 +235,10 @@
       <artifactId>kotlin-stdlib</artifactId>
       <scope>test</scope>
     </dependency>
+
+
+
+
   </dependencies>
 
   <distributionManagement>
