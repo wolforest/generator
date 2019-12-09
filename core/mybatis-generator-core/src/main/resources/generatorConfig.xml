@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2006-2019 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="my" targetRuntime="MyBatis3">
+        <!-- 格式化JAVA代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+
+        <!--
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin">
+        -->
+
+        <!--
+        <plugin type="com.softwareloop.mybatis.generator.plugins.LombokPlugin">
+            <property name="builder" value="false"/>
+            <property name="builder.fluent" value="false"/>
+            <property name="builder.builderMethodName" value="Builder"/>
+            <property name="accessors" value="false"/>
+            <property name="accessors.prefix" value="m_, _"/>
+            <property name="allArgsConstructor" value="false"/>
+        </plugin>
+        -->
+
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/wolf_mq?useSSL=false"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.wingle.dal.dataobject"
+                            targetProject="/code/github/generator/core/mybatis-generator-core/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="/code/github/generator/core/mybatis-generator-core/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.wingle.dal.dao"
+                             targetProject="/code/github/generator/core/mybatis-generator-core/src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+            <property name="overWrite" value="false"/>
+        </javaClientGenerator>
+
+        <table tableName="wmq_message" domainObjectName="MessageDO" mapperName="MessageDAO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByPrimaryKey="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+        >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <columnOverride column="delete_flag" javaType="boolean"/>
+        </table>
+
+        <table tableName="wmq_scheduled_message" domainObjectName="ScheduledMessageDO" mapperName="ScheduledMessageDAO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByPrimaryKey="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+        >
+            <!-- 保持数据库原有的变量名字,不处理下划线为驼峰,默认为false -->
+
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <columnOverride column="delete_flag" javaType="boolean"/>
+        </table>
+
+        <table tableName="wmq_tcc_message" domainObjectName="TccMessageDO" mapperName="TccMessageDAO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByPrimaryKey="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+        >
+            <!-- 保持数据库原有的变量名字,不处理下划线为驼峰,默认为false -->
+
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <columnOverride column="delete_flag" javaType="boolean"/>
+        </table>
+
+        <table tableName="wmq_queue" domainObjectName="QueueDO" mapperName="QueueDAO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByPrimaryKey="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+        >
+            <!-- 保持数据库原有的变量名字,不处理下划线为驼峰,默认为false -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <columnOverride column="delete_flag" javaType="boolean"/>
+        </table>
+
+        <table tableName="wmq_task" domainObjectName="TaskDO" mapperName="TaskDAO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByPrimaryKey="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+        >
+            <!-- 保持数据库原有的变量名字,不处理下划线为驼峰,默认为false -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <columnOverride column="delete_flag" javaType="boolean"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

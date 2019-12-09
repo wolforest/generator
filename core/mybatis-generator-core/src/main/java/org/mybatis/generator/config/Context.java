@@ -44,7 +44,7 @@ import org.mybatis.generator.internal.PluginAggregator;
 import org.mybatis.generator.internal.db.DatabaseIntrospector;
 
 public class Context extends PropertyHolder {
-
+    // properties
     private String id;
 
     private JDBCConnectionConfiguration jdbcConnectionConfiguration;
@@ -102,6 +102,7 @@ public class Context extends PropertyHolder {
         pluginConfigurations = new ArrayList<>();
     }
 
+    //getter & setter
     public void addTableConfiguration(TableConfiguration tc) {
         tableConfigurations.add(tc);
     }
@@ -143,6 +144,7 @@ public class Context extends PropertyHolder {
             errors.add(getString("ValidationError.16")); //$NON-NLS-1$
         }
 
+        //jdbc validate
         if (jdbcConnectionConfiguration == null && connectionFactoryConfiguration == null) {
             // must specify one
             errors.add(getString("ValidationError.10", id)); //$NON-NLS-1$
@@ -195,6 +197,7 @@ public class Context extends PropertyHolder {
         }
     }
 
+    // getter & setter
     public String getId() {
         return id;
     }
@@ -377,8 +380,7 @@ public class Context extends PropertyHolder {
             throws SQLException, InterruptedException {
 
         introspectedTables = new ArrayList<>();
-        JavaTypeResolver javaTypeResolver = ObjectFactory
-                .createJavaTypeResolver(this, warnings);
+        JavaTypeResolver javaTypeResolver = ObjectFactory.createJavaTypeResolver(this, warnings);
 
         Connection connection = null;
 
@@ -386,12 +388,10 @@ public class Context extends PropertyHolder {
             callback.startTask(getString("Progress.0")); //$NON-NLS-1$
             connection = getConnection();
 
-            DatabaseIntrospector databaseIntrospector = new DatabaseIntrospector(
-                    this, connection.getMetaData(), javaTypeResolver, warnings);
+            DatabaseIntrospector databaseIntrospector = new DatabaseIntrospector(this, connection.getMetaData(), javaTypeResolver, warnings);
 
             for (TableConfiguration tc : tableConfigurations) {
-                String tableName = composeFullyQualifiedTableName(tc.getCatalog(), tc
-                                .getSchema(), tc.getTableName(), '.');
+                String tableName = composeFullyQualifiedTableName(tc.getCatalog(), tc.getSchema(), tc.getTableName(), '.');
 
                 if (fullyQualifiedTableNames != null
                         && !fullyQualifiedTableNames.isEmpty()
@@ -405,8 +405,7 @@ public class Context extends PropertyHolder {
                 }
 
                 callback.startTask(getString("Progress.1", tableName)); //$NON-NLS-1$
-                List<IntrospectedTable> tables = databaseIntrospector
-                        .introspectTables(tc);
+                List<IntrospectedTable> tables = databaseIntrospector.introspectTables(tc);
 
                 if (tables != null) {
                     introspectedTables.addAll(tables);
@@ -456,28 +455,19 @@ public class Context extends PropertyHolder {
 
                 introspectedTable.initialize();
                 introspectedTable.calculateGenerators(warnings, callback);
-                generatedJavaFiles.addAll(introspectedTable
-                        .getGeneratedJavaFiles());
-                generatedXmlFiles.addAll(introspectedTable
-                        .getGeneratedXmlFiles());
-                generatedKotlinFiles.addAll(introspectedTable
-                        .getGeneratedKotlinFiles());
+                generatedJavaFiles.addAll(introspectedTable.getGeneratedJavaFiles());
+                generatedXmlFiles.addAll(introspectedTable.getGeneratedXmlFiles());
+                generatedKotlinFiles.addAll(introspectedTable.getGeneratedKotlinFiles());
 
-                generatedJavaFiles.addAll(pluginAggregator
-                        .contextGenerateAdditionalJavaFiles(introspectedTable));
-                generatedXmlFiles.addAll(pluginAggregator
-                        .contextGenerateAdditionalXmlFiles(introspectedTable));
-                generatedKotlinFiles.addAll(pluginAggregator
-                        .contextGenerateAdditionalKotlinFiles(introspectedTable));
+                generatedJavaFiles.addAll(pluginAggregator.contextGenerateAdditionalJavaFiles(introspectedTable));
+                generatedXmlFiles.addAll(pluginAggregator.contextGenerateAdditionalXmlFiles(introspectedTable));
+                generatedKotlinFiles.addAll(pluginAggregator.contextGenerateAdditionalKotlinFiles(introspectedTable));
             }
         }
 
-        generatedJavaFiles.addAll(pluginAggregator
-                .contextGenerateAdditionalJavaFiles());
-        generatedXmlFiles.addAll(pluginAggregator
-                .contextGenerateAdditionalXmlFiles());
-        generatedKotlinFiles.addAll(pluginAggregator
-                .contextGenerateAdditionalKotlinFiles());
+        generatedJavaFiles.addAll(pluginAggregator.contextGenerateAdditionalJavaFiles());
+        generatedXmlFiles.addAll(pluginAggregator.contextGenerateAdditionalXmlFiles());
+        generatedKotlinFiles.addAll(pluginAggregator.contextGenerateAdditionalKotlinFiles());
     }
 
     private Connection getConnection() throws SQLException {
