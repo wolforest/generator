@@ -180,6 +180,18 @@
 
   <dependencyManagement>
     <dependencies>
+
+      <!-- add by wingle start -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.18</version>
+      </dependency>
+
+      <!-- add by wingle end -->
+
+
+
       <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
